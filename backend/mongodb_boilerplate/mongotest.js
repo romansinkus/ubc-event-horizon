@@ -1,6 +1,8 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
-const key = "Pk3iK8M7Alc8gFri";
+const key = process.env.MONGO_KEY;
+
+// console.log(key);
 
 async function run() {
   const uri =
@@ -19,7 +21,7 @@ async function run() {
   // If the database and/or collection do not exist, the driver and Atlas
   // will create them automatically when you first write data.
   const dbName = "myDatabase";
-  const collectionName = "recipes";
+  const collectionName = "recipes-paul";
 
   // Create references to the database and collection in order to run
   // operations on them.
