@@ -7,7 +7,6 @@ const key = process.env.MONGO_KEY;
 async function run() {
   const uri =
     "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
-    // mongodb+srv://charity-g:<password>@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority
 
   // The MongoClient is the object that references the connection to our
   const client = new MongoClient(uri);
