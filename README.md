@@ -1,7 +1,6 @@
-# ubc-event-horizon
+# UBC Event Horizon
 UBC's Event Universe in One Place!
 ## Description
-Opening:
 Did you know about UBC Recreation's upcoming Yoga Rave? What about the Science Undergraduate Society's upcoming Science Olympics? If you're like many students, keeping track of the myriad of events on campus can be overwhelming. In fact, only 1% of UBC students in our Instagram survey today report always knowing events going on on campus. But what if there was a way to always stay in the loop effortlessly?"
 
 Introducing Event Horizon – your centralized hub for all events at UBC. No more need to keep up with dozens of instagram accounts and multiple other websites. Our mission is not just about convenience; it's about fostering a vibrant, interconnected community on campus.
