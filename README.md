@@ -16,3 +16,21 @@ Imagine a UBC where no student ever feels out of the loop, where every event is 
     * [@DomPizzie](https://twitter.com/dompizzie)
 * Charity Grey
     * Github: [@charity-g](https://github.com/charity-g)
+
+
+## Version History
+[comment]: <> (0.2 * Various bug fixes and optimizations * See [commit change]() or See [release history]())
+* 0.1
+    * Initial Release
+
+## License
+[comment]: <> (This is a comment, it will not be included -> This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details) 
+
+
+## Acknowledgments
+
+Inspiration, code snippets, etc.
+* [phantombuster] (https://phantombuster.com) for scraping 4 IG accounts as proof of concept- to develop own ig scrapers for future scaling
+
+
+

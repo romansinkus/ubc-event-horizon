@@ -59,13 +59,15 @@ len(ig_links)
 ig_links[-2]
 
 df = pd.DataFrame(ig_links)
+
 def clean_link(x):
-    x = re.search("www\.instagram\.com\/\S+\/", x)
-    if x:
-        return x.group()
+    not_cleaned = re.search("www\.instagram\.com\/S+>", x)
+    if not_cleaned:
+        return not_cleaned.group()
     else:
         return x
-df_cleaned = df[0].apply(clean_link)
+df_cleaned = df['0'].apply(clean_link)
 df_cleaned = df_cleaned.dropna()
+df_cleaned = df_cleaned.drop_duplicates()
 
-df.to_csv('data\\ig_urls_uncleaned.csv', index=False)
+df_cleaned.to_csv(r'C:\Users\cherr\OneDrive\Documents\Code projects\ubc-event-horizon\data\ig_urls_cleaned.csv', index=False)
