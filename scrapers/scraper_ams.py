@@ -54,8 +54,18 @@ for i in range(len(found_websites_hrefs)):
         print(site_url + ' failed')
         pass
 #%%
+# CLEAN LINKS
 len(ig_links)
 ig_links[-2]
 
 df = pd.DataFrame(ig_links)
+def clean_link(x):
+    x = re.search("www\.instagram\.com\/\S+\/", x)
+    if x:
+        return x.group()
+    else:
+        return x
+df_cleaned = df[0].apply(clean_link)
+df_cleaned = df_cleaned.dropna()
+
 df.to_csv('ig_urls_uncleaned.csv', index=False)
