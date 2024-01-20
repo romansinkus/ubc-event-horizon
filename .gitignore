@@ -1,0 +1,6 @@
+# ignore ALL .env files
+*.env
+
+# ignores env.py 
+env.py
+ 
