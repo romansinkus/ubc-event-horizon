@@ -40,7 +40,7 @@ found_websites_hrefs[0]
 #%%
 ig_links = []
 
-for i in range(86, len(found_websites_hrefs)):
+for i in range(len(found_websites_hrefs)):
     try:
         site_url = found_websites_hrefs[i]
         s_req = s.get(site_url)
@@ -58,4 +58,4 @@ len(ig_links)
 ig_links[-2]
 
 df = pd.DataFrame(ig_links)
-df.to_csv('415_ig_urls.csv', index=False)
+df.to_csv('ig_urls_uncleaned.csv', index=False)
