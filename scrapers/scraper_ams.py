@@ -68,4 +68,4 @@ def clean_link(x):
 df_cleaned = df[0].apply(clean_link)
 df_cleaned = df_cleaned.dropna()
 
-df.to_csv('C:\Users\cherr\OneDrive\Documents\Code projects\ig_urls_uncleaned.csv', index=False)
+df.to_csv('data\\ig_urls_uncleaned.csv', index=False)
