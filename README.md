@@ -57,3 +57,7 @@ Contributors names and contact info
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
+* [phantombuster] (https://phantombuster.com) for scraping 4 IG accounts as proof of concept- to develop own ig scrapers for future scaling
+
+
+
