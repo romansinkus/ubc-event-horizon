@@ -1,0 +1,38 @@
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 60%;
+  margin: 0 auto;
+  height: 65vh; /* Adjust as needed */
+  gap: 5px; /* Add this line to control spacing between days */
+}
+
+.calendar-subtitle {
+  text-align: center;
+  font-size: 24px; /* Smaller than header */
+  margin-bottom: 20px;
+  font-weight: 400;
+  color: #90a9b4;
+  /* Additional styling */
+}
+
+.calendar-title {
+  /* Example Styling; adjust as needed */
+  font-size: 100px !important;
+  margin-bottom: 20px;
+  color: #ffffff; /* Choose a color that fits your design */
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 12px !important;
+  
+}
+
+.calendar-header {
+  font-size: 50px; /* Example font size */
+  color: #efefef; /* Example color */
+  letter-spacing: 12px; /* Adjusted letter spacing */
+  text-align: center;
+  font-weight: 800;
+  /* Other styles */
+}
