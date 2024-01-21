@@ -1,0 +1,61 @@
+.day {
+  flex: 0 0 33%; /* Example value - adjust as needed */
+  height: 400px;
+  background: rgb(255, 255, 255);
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  overflow: hidden;
+  
+}
+
+.day h3 {
+  text-align: center;
+  background: #ffffff;
+  margin-top: 0;
+  padding: 10px 0;
+}
+
+.entries {
+  height: 100%; /* Adjust based on your design */
+  overflow-y: auto;
+}
+
+.entry {
+  padding: 10px;
+  border-bottom: 1px solid #9a999c;
+  border-top:1px solid #9a999c;
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 2px; /* Space between entries */
+}
+
+/* For Webkit browsers like Chrome, Safari */
+.entries::-webkit-scrollbar {
+  width: 10px;  /* Adjust the width as needed */
+}
+
+.entries::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* Track background color */
+}
+
+.entries::-webkit-scrollbar-thumb {
+  background: #888;  /* Thumb color */
+  border-radius: 5px;  /* Roundness of the thumb */
+}
+
+.entries::-webkit-scrollbar-thumb:hover {
+  background: #555;  /* Color when hovered */
+}
+
+/* For Firefox */
+.entries {
+  scrollbar-width: thin;  /* 'auto', 'thin', 'none' */
+  scrollbar-color: #888 #f1f1f1;  /* Thumb and track color */
+}
+
+/* Existing styles... */
+
+.entry {
+  /* Existing styles... */
+  position: relative; /* To position the hover box relative to the entry */
+}
