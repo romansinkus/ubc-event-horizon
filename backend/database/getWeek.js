@@ -3,13 +3,15 @@ require("dotenv").config();
 const key = process.env.MONGO_KEY;
 
 
-async function getWeeks() {
+async function getWeeks(weeksFromToday = 0) {
    const uri = "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
    const client = new MongoClient(uri)
    
 
    const day_to_dayOfWeek = ['MON', 'TUE', 'WED', 'THURS', 'FRI', 'SAT', 'SUN'] //index is dayOfWeek
    let today_date = new Date();
+   today_date = new Date((today_date.getTime() + (7 * 60 * 60 * 24 * 1000 * weeksFromToday)))
+   console.log(today_date);
    today_date = new Date(today_date.toDateString())
    const dayOfWeek = today_date.getUTCDay() == 0 ? 6 : today_date.getUTCDay(); // 0 (Monday) to 6 (Sunday)
    const monday = new Date(today_date.getTime() - (dayOfWeek  * 24 * 60 * 60 * 1000));
@@ -19,7 +21,8 @@ async function getWeeks() {
       week_dates.push(d);
    }
    const sunday = week_dates[6];
-   console.log(today_date);
+   console.log(monday);
+   console.log(sunday);
       
    console.log("attempting to get events");
    try {

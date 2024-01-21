@@ -53,7 +53,7 @@ app.get('/api/events', async (req, res) => {
 
 app.get('/api/getWeek', async (req, res) => {
   try {
-    const weekData = await getWeeks(); // Call the function
+    const weekData = await getWeeks(1); // Call the function
     console.log("got weeks")
     res.json(weekData); // Send the data as JSON response
 } catch (error) {
