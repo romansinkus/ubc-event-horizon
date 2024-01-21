@@ -2,15 +2,17 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
   event.preventDefault();
 
   const formData = {
-      title: document.getElementById('title').value,
-      location: document.getElementById('location').value,
-      date: document.getElementById('date').value,
-      startTime: document.getElementById('startTime').value,
-      endTime: document.getElementById('endTime').value,
-      description: document.getElementById('description').value,
+      'Event Title': document.getElementById('title').value,
+      Location: document.getElementById('location').value,
+      Date: new Date(document.getElementById('date').value),
+      'Start Time': document.getElementById('startTime').value,
+      'End Time': document.getElementById('endTime').value,
+      'Event Description': document.getElementById('description').value,
       clubName: document.getElementById('clubName').value,
-      insta: document.getElementById('insta').value
+      ig_username: document.getElementById('insta').value
   };
+
+  console.log(formData);
 
   fetch('http://localhost:3000/api/storeForm', {
       method: 'POST',

@@ -6,6 +6,7 @@ const { exec } = require('child_process');
 const storeInMongo = require('./database/insertEvents.js');  // to insert stuff 
 const getFromMongo = require('./database/getEvents.js') // to get stuff
 const submitForm = require('./database/insertForm.js') // to insert form
+const getWeeks = require('./database/getWeek.js') // get scraped data to send and display on frontend
 const cors = require('cors');
 
 app.use(cors());
@@ -44,6 +45,17 @@ app.get('/api/events', async (req, res) => {
     const eventsData = await getFromMongo(); // Call the function
     console.log("sending back data")
     res.json(eventsData); // Send the data as JSON response
+} catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching events");
+}
+});
+
+app.get('/api/getWeek', async (req, res) => {
+  try {
+    const weekData = await getWeeks(); // Call the function
+    console.log("got weeks")
+    res.json(weekData); // Send the data as JSON response
 } catch (error) {
     console.error(error);
     res.status(500).send("Error fetching events");
