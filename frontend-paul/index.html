@@ -9,6 +9,19 @@
 <body>
     <h1>Upcoming Events</h1>
     <div id="events"></div>
-    <script src="script.js"></script>
+    <form id="eventForm">
+      <input type="text" id="title" name="title" placeholder="Title" required>
+      <input type="text" id="location" name="location" placeholder="Location" required>
+      <input type="date" id="date" name="date" required>
+      <input type="time" id="startTime" name="startTime" required>
+      <input type="time" id="endTime" name="endTime" required>
+      <textarea id="description" name="description" placeholder="Description" required></textarea>
+      <input type="text" id="clubName" name="clubName" placeholder="Club Name" required>
+      <input type="text" id="insta" name="insta" placeholder="Instagram Handle">
+      <button type="submit">Submit Event</button>
+  </form>
+  <div id="submissionStatus"></div>
+    <script src="fetchEvents.js"></script>
+    <!-- <script src="storeFormInput.js"></script> -->
 </body>
 </html>

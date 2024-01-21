@@ -13,7 +13,7 @@ async function getFromMongo() {
       const events = database.collection('events');
 
       const eventsData = await events.find().toArray();
-      console.log("Events data", eventsData);
+      // console.log("Events data", eventsData);
       return eventsData;  // Return the data
   } catch (e) {
       throw e;  // Throw the error to be handled by the caller
