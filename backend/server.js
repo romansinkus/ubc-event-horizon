@@ -1,10 +1,26 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const { exec } = require('child_process');
+const storeInMongo = require('./database/insertEvents.js');  // Importing the function
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/run-python-script', (req, res) => {
+  exec('python ./data_cleaning/insta_cleaning.py', async (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return res.status(500).send(`Error: ${error.message}`);
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return res.status(500).send(`Error: ${stderr}`);
+    }
+    
+    // Store the Python script output in MongoDB
+    await storeInMongo(stdout);
+    res.send('Data stored in MongoDB');
+  });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

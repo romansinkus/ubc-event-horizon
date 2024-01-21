@@ -20,7 +20,7 @@ async function run() {
   // If the database and/or collection do not exist, the driver and Atlas
   // will create them automatically when you first write data.
   const dbName = "myDatabase";
-  const collectionName = "recipes-paul";
+  const collectionName = "recipes-paul2";
 
   // Create references to the database and collection in order to run
   // operations on them.
