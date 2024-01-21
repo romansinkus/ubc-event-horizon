@@ -8,6 +8,7 @@ Created on Sat Jan 20 14:47:12 2024
 import os
 import sys
 import pandas as pd
+import json
 
 from openai import OpenAI
 
@@ -59,9 +60,11 @@ urls_filtered = urls_df[urls_df['isEvent'] == 'TRUE']
 
 #%%
 
-paragraph_dict = {}
+listOfEvents = []
 
 for i, row in urls_filtered.iterrows():
+    if (i > 5):
+        break
     text = row['description']
     
     response = client.chat.completions.create(
@@ -82,5 +85,18 @@ for i, row in urls_filtered.iterrows():
     )
 
     msg = response.choices[0].message
+    event_info = msg.content.split('\n')
+    event_dict = {}
+    for info in event_info:
+        key = info.split(':', 1)[0]
+        value = info.split(':', 1)[1]
+        event_dict[key] = value
     print(msg.content)
-    paragraph_dict[row['postUrl']] = msg.content
+    print(event_dict)
+    listOfEvents.append(event_dict)
+
+#%%
+
+# Convert and write JSON object to file
+with open(".\sample_events.json", "w") as outfile: 
+    json.dump(listOfEvents, outfile)
