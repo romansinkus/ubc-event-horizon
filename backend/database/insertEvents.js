@@ -2,8 +2,6 @@ const { MongoClient } = require('mongodb');
 require("dotenv").config();
 const key = process.env.MONGO_KEY;
 
-console.log(key);
-
 async function storeInMongo(data) {
   const uri = "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
   const client = new MongoClient(uri)
