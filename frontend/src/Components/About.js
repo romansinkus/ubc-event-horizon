@@ -106,17 +106,55 @@ import Day from './Day';
 import './Calendar.css';
 
 class About extends Component {
-  render() {
-    // Define the days of the week and their events
-    const weekData = {
-      'MON': [{ data1: 'Event 1', data2: 'Detail 1', /* ... */ }, { data1: 'Event 2', data2: 'Detail 2', /* ... */ }],
-      'TUES': [{ data1: 'Event 2', data2: 'Detail 2', /* ... */ }, { data1: 'Event 33', data2: 'Detail 33', /* ... */ }],
-      'WED': [], // No events for Wednesday
-      'THURS': [{ data1: 'Event 3', data2: 'Detail 3', /* ... */ }, /* More events for Thursday */],
-      'FRI': [], // No events for Friday
-      'SAT': [], // No events for Saturday
-      'SUN': [], // No events for Sunday
+  constructor(props) {
+    super(props);
+    // Initialize state
+    this.state = {
+      weekData: {}, // Empty object for the fetched data
     };
+  }
+
+  componentDidMount() {
+    // Fetch data when the component mounts
+    fetch('http://localhost:3000/api/getWeek')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Transform the data to match the expected format
+        const formattedData = this.transformEventData(data);
+        this.setState({ weekData: formattedData });
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+        // Handle the error state as needed
+      });
+  }
+
+  transformEventData(data) {
+    let transformedData = {};
+    for (let day in data) {
+      if (!data[day] || Object.keys(data[day]).length === 0) {
+        // No events for this day
+        transformedData[day] = [];
+      } else {
+        // Format the event data for this day
+        // Since the data for each day is an object, not an array, wrap it in an array
+        transformedData[day] = [data[day]].map(event => ({
+          data1: event['Event Title'],
+          // Add other details as needed
+        }));
+      }
+    }
+    return transformedData;
+  }
+  
+
+  render() {
+    const { weekData } = this.state;
 
     return (
       <section id="about">
@@ -126,9 +164,13 @@ class About extends Component {
               <div>
                 <h2 className="calendar-title">JANUARY 2024</h2>
                 <div className="calendar">
-                  {Object.keys(weekData).map(day => (
-                    <Day key={day} dayName={day} events={weekData[day]} />
-                  ))}
+                  {Object.keys(weekData).length > 0 ? (
+                    Object.keys(weekData).map(day => (
+                      <Day key={day} dayName={day} events={weekData[day]} />
+                    ))
+                  ) : (
+                    <p>Loading events...</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -140,3 +182,4 @@ class About extends Component {
 }
 
 export default About;
+
