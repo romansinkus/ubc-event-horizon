@@ -11,7 +11,7 @@ async function submitForm(data) {
   try {
     await client.connect();
     const database = client.db('ubc-event-horizon');
-    const collection = database.collection('test-input-events');
+    const collection = database.collection('events_by_time');
     // THE MAIN INSERTION
     const result = await collection.insertOne(data);
     return result;
