@@ -53,13 +53,13 @@ app.get('/api/events', async (req, res) => {
 
 app.get('/api/getWeek', async (req, res) => {
   try {
-    const weekData = await getWeeks(1); // Call the function
-    console.log("got weeks")
-    res.json(weekData); // Send the data as JSON response
-} catch (error) {
+    const weeksFromToday = parseInt(req.query.weeksFromToday, 10) || 0;
+    const weekData = await getWeeks(weeksFromToday);
+    res.json(weekData);
+  } catch (error) {
     console.error(error);
     res.status(500).send("Error fetching events");
-}
+  }
 });
 
 app.listen(port, () => {

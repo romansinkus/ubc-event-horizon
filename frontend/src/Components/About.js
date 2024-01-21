@@ -66,7 +66,6 @@
 
 // export default About;
 
-
 // ----- CURRENT WORKING TOP
 // import React, { Component } from "react";
 // import Fade from "react-reveal";
@@ -102,99 +101,112 @@
 
 import React, { Component } from "react";
 import Fade from "react-reveal";
-import Day from './Day';
-import './Calendar.css';
-
+import Day from "./Day";
+import "./Calendar.css";
 
 class About extends Component {
   constructor(props) {
     super(props);
-    // Initialize state
     this.state = {
       weekData: {}, // Empty object for the fetched data
+      weeksFromToday: 0, // Current week offset from the current date
     };
   }
 
   componentDidMount() {
-    // Fetch data when the component mounts
-    fetch('http://localhost:3000/api/getWeek')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Transform the data to match the expected format
-        const formattedData = this.transformEventData(data);
-        this.setState({ weekData: formattedData });
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-        // Handle the error state as needed
-      });
+    this.fetchWeekData();
   }
 
-  // transformEventData(data) {
-  //   let transformedData = {};
-  //   for (let day in data) {
-  //     if (!data[day] || Object.keys(data[day]).length === 0) {
-  //       // No events for this day
-  //       transformedData[day] = [];
-  //     } else {
-  //       // Format the event data for this day
-  //       // Since the data for each day is an object, not an array, wrap it in an array
-  //       transformedData[day] = [data[day]].map(event => ({
-  //         data1: event['Event Title'],
-  //         // Add other details as needed
-  //       }));
-  //     }
-  //   }
-  //   return transformedData;
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.weeksFromToday !== this.state.weeksFromToday) {
+      this.fetchWeekData();
+    }
+  }
+
+  fetchWeekData = () => {
+    fetch(
+      `http://localhost:3000/api/getWeek?weeksFromToday=${this.state.weeksFromToday}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const transformedData = this.transformEventData(data);
+        console.log(transformedData);
+        this.setState({ weekData: transformedData });
+      })
+      .catch((error) => console.error("Error fetching week data:", error));
+  };
+
+  goToNextWeek = () => {
+    this.setState((prevState) => ({
+      weeksFromToday: prevState.weeksFromToday + 1,
+    }));
+  };
+
+  goToPreviousWeek = () => {
+    this.setState((prevState) => ({
+      weeksFromToday: prevState.weeksFromToday - 1,
+    }));
+  };
 
   transformEventData(data) {
     let transformedData = {};
     for (let day in data) {
-      if (!data[day] || Object.keys(data[day]).length === 0) {
-        transformedData[day] = [];
+      // Check if the day's data is an array
+      if (Array.isArray(data[day])) {
+        transformedData[day] = data[day]; // Already an array, use as is
+      } else if (data[day] && typeof data[day] === "object") {
+        // If it's an object, put it into an array
+        transformedData[day] = [data[day]];
       } else {
-        transformedData[day] = [data[day]].map(event => ({
-          Date: event.Date,
-          EventTitle: event["Event Title"],
-          Username: event.ig_username,
-          StartTime: event["Start Time"],
-          EndTime: event["End Time"],
-          EventDescription: event["Event Description"],
-          Location: event.Location,
-          // Add other necessary fields here
-        }));
+        // If it's neither an array nor an object, use an empty array
+        transformedData[day] = [];
       }
     }
     return transformedData;
   }
   
-  
+  // truncateText(text, max_length = 85) {
+  //   if (text.length > max_length) {
+  //     return text.slice(0, max_length - 3) + "...";
+  //   }
+  //   return text;
+  // }
 
   render() {
     const { weekData } = this.state;
+
+    console.log({ weekData });
 
     return (
       <section id="about">
         <Fade duration={1000}>
           <div className="row">
             <div className="twelve columns">
-              <div>
+              <div className="week-navigation">
+                <button
+                  onClick={this.goToPreviousWeek}
+                  className="week-button"
+                  id="prev_button"
+                >
+                  &#8592; Previous Week
+                </button>
                 <h2 className="calendar-title">JANUARY 2024</h2>
-                <div className="calendar">
-                  {Object.keys(weekData).length > 0 ? (
-                    Object.keys(weekData).map(day => (
-                      <Day key={day} dayName={day} events={weekData[day]} />
-                    ))
-                  ) : (
-                    <p>Loading events...</p>
-                  )}
-                </div>
+                <button
+                  onClick={this.goToNextWeek}
+                  className="week-button"
+                  id="next_button"
+                >
+                  Next Week &#8594;
+                </button>
+              </div>
+              <div className="calendar">
+                {Object.keys(weekData).length > 0 ? (
+                  Object.keys(weekData).map((day) => (
+                    <Day key={day} dayName={day} events={weekData[day]} />
+                  ))
+                ) : (
+                  <p>Loading events...</p>
+                )}
               </div>
             </div>
           </div>
@@ -205,4 +217,3 @@ class About extends Component {
 }
 
 export default About;
-

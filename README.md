@@ -13,7 +13,7 @@ Imagine a UBC where no student ever feels out of the loop, where every event is 
 * Roman Sinkus
     * [@DomPizzie](https://twitter.com/dompizzie)
 * Anna Friesen
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@annnafriesen](https://github.com/annnafriesen)
 * Charity Grey
     * Github: [@charity-g](https://github.com/charity-g)
 

@@ -1,19 +1,19 @@
 {
   "main": {
     "name":"UBC EVENT HORIZON",
-    "description":"All the events in the UBC universe. All in one place..",
+    "description":"The Entire UBC Event Universe in One Place",
     "image":"profilepic.jpg",
     "bio":"Use this bio section as your way of describing yourself and saying what you do, what technologies you like to use or feel most comfortable with, describing your personality, or whatever else you feel like throwing in.",
-    "contactmessage":"Here is where you should write your message to readers to have them get in contact with you.",
+    "contactmessage":"Write a message to us at UBC Event Horizon!",
     "email": "youremailhere@gmail.com",
     "phone": "555-555-5555",
     "github":"https://github.com/nordicgiant2/react-nice-resume",
     "project":"https://github.com/nordicgiant2/react-nice-resume",
     "address":{
-      "street":"(Your Street)",
-      "city":"(Your City)",
-      "state":"(Your State)",
-      "zip": "(Your Zip/Postal Code)"
+      "street":"University of British Columbia",
+      "city":"Vancouver",
+      "state":"British Columbia",
+      "zip": "V6T 1Z4"
     },
     "website": "http://www.timbakerdev.com",
     "resumedownload":"http://timbakerdev.com",

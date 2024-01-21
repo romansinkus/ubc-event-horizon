@@ -51,7 +51,7 @@ class App extends Component {
         <TooltipContext.Provider value={{component: this.state.tooltipComponent, setTooltip: newTooltip => this.setTooltip(newTooltip)}}>
           <TooltipContainer />
           <div className="App">
-            <Header data={this.state.resumeData.main} />}
+            <Header data={this.state.resumeData.main} />
             <About data={this.state.resumeData.main} />
             <Resume data={this.state.resumeData.resume} />
             <Portfolio data={this.state.resumeData.portfolio} />
