@@ -31,4 +31,4 @@ Imagine a UBC where no student ever feels out of the loop, where every event is 
 
 Inspiration, code snippets, etc.
 * [phantombuster] (https://phantombuster.com) for scraping 4 IG accounts as proof of concept- to develop own ig scrapers for future scaling
-
+* [react-nice-resume] (https://github.com/nordicgiant2/react-nice-resume?fbclid=IwAR36veoY2-EzUM0HnsNSPkof93CzmL8EypIscUxlxFxUUbWO9H9CmFf_XLk) Referenced for styling and React components
