@@ -59,10 +59,68 @@ for i, row in urls_df.iterrows():
     print(msg.content)
     isEvent.append(msg.content)
 #%%
-# isEvent = ['FALSE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE']
-
+isEvent = ['True',
+ 'True',
+ 'False',
+ 'True',
+ 'False',
+ 'True',
+ 'False',
+ 'True',
+ 'False',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'True',
+ 'True',
+ 'False',
+ 'True',
+ 'False',
+ 'False',
+ 'False',
+ 'True',
+ 'False',
+ 'False',
+ 'False',
+ 'True',
+ 'True',
+ 'False',
+ 'False',
+ 'False',
+ 'False',
+ 'True']
 urls_df['isEvent'] = pd.Series(isEvent)
-urls_filtered = urls_df[urls_df['isEvent'] == 'TRUE'] 
+urls_filtered = urls_df[urls_df['isEvent'] == 'True'] 
 
 #%%
 
@@ -76,7 +134,7 @@ for i, row in urls_filtered.iterrows():
     text = row['description']
     
     response = client.chat.completions.create(
-      model="gpt-3.5-turbo-0613",
+      model="gpt-3.5-turbo-1106",
       messages=[
     	{
       	"role": "system",
@@ -103,7 +161,7 @@ print(end - start)
 #%%
 #parse response into dict
 
-listOfEvents_52 = listOfEvents
+listOfEvents_37 = listOfEvents
 listOfEventObjects = []
 errorEvents = {}
 
@@ -173,7 +231,7 @@ for obj in listOfEventObjects:
 
 #%%
 # Convert and write JSON object to file
-with open("events_20240120_events_32events.json", "w") as outfile: 
+with open("events_20240121_eventsB_36events.json", "w") as outfile: 
     json.dump(listOfEventObject_no_dup, outfile)
     
 
