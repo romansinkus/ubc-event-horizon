@@ -131,10 +131,55 @@ class Resume extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state); // Here, handle the form submission
+  
+    const formData = {
+      title: this.state.title,
+      location: this.state.location,
+      date: new Date(this.state.date).toISOString(),
+      startTime: this.state.startTime,
+      endTime: this.state.endTime,
+      description: this.state.description,
+      clubName: this.state.clubName,
+      instagramHandle: this.state.instagramHandle,
+    };
+  
+    fetch('http://localhost:3000/api/storeForm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      // Handle success here (e.g., display success message)
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle errors here (e.g., display error message)
+    });
+  
+    // Optionally reset the form here
+    this.setState({
+      title: "",
+      location: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+      description: "",
+      clubName: "",
+      instagramHandle: "",
+    });
   };
+  
 
-  renderFormInput = (label, name, type = "text") => {
+  renderFormInput = (label, name, type = "text", isOptional = false) => {
     return (
       <div className="row item">
         <div className="twelve columns">
@@ -144,11 +189,13 @@ class Resume extends Component {
             name={name}
             value={this.state[name]}
             onChange={this.handleChange}
+            required={!isOptional} // Add the required attribute if not optional
           />
         </div>
       </div>
     );
   };
+  
 
   renderTimeInputs = () => {
     return (
@@ -186,22 +233,24 @@ class Resume extends Component {
           </div>
 
           <div className="nine columns main-col event-form">
-            <form onSubmit={this.handleSubmit}>
-              {this.renderFormInput("Title", "title")}
-              {this.renderFormInput("Location", "location")}
-              {this.renderFormInput("Date", "date", "date")}
-              {this.renderTimeInputs()} {/* Render Time Inputs Together */}
-              {this.renderFormInput("Description", "description")}
-              {this.renderFormInput("Club Name", "clubName")}
-              {this.renderFormInput("Instagram Handle", "instagramHandle")}
-              <div className="row item">
-                <div className="twelve columns">
-                  <button type="submit" className="submit">
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
+          <form onSubmit={this.handleSubmit}>
+  {this.renderFormInput("Title", "title")}
+  {this.renderFormInput("Location", "location")}
+  {this.renderFormInput("Date", "date", "date")}
+  {this.renderTimeInputs()} {/* Assume renderTimeInputs also handles the required attribute */}
+  {this.renderFormInput("Description", "description")}
+  {this.renderFormInput("Club Name", "clubName", "text", true)}
+  {this.renderFormInput("Instagram Handle", "instagramHandle", "text", true)}
+  {this.renderFormInput("Event Link", "eventLink", "text", true)} 
+  <div className="row item">
+    <div className="twelve columns">
+      <button type="submit" className="submit">
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+
           </div>
         </div>
       </section>
