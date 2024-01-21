@@ -19,8 +19,8 @@ async function run() {
   // Provide the name of the database and collection you want to use.
   // If the database and/or collection do not exist, the driver and Atlas
   // will create them automatically when you first write data.
-  const dbName = "myDatabase";
-  const collectionName = "recipes-paul2";
+  const dbName = "ubc-event-horizon";
+  const collectionName = "events_by_time";
 
   // Create references to the database and collection in order to run
   // operations on them.
@@ -35,59 +35,10 @@ async function run() {
    * insert them all in one call with collection.insertMany().
    */
 
-  const recipes = [
-    {
-      name: "elotes",
-      ingredients: [
-        "corn",
-        "mayonnaise",
-        "cotija cheese",
-        "sour cream",
-        "lime",
-      ],
-      prepTimeInMinutes: 35,
-    },
-    {
-      name: "loco moco",
-      ingredients: [
-        "ground beef",
-        "butter",
-        "onion",
-        "egg",
-        "bread bun",
-        "mushrooms",
-      ],
-      prepTimeInMinutes: 54,
-    },
-    {
-      name: "patatas bravas",
-      ingredients: [
-        "potato",
-        "tomato",
-        "olive oil",
-        "onion",
-        "garlic",
-        "paprika",
-      ],
-      prepTimeInMinutes: 80,
-    },
-    {
-      name: "fried rice",
-      ingredients: [
-        "rice",
-        "soy sauce",
-        "egg",
-        "onion",
-        "pea",
-        "carrot",
-        "sesame oil",
-      ],
-      prepTimeInMinutes: 40,
-    },
-  ];
+  const events_to_add = require('../../data/events_20240120_events_32events.json');
 
   try {
-    const insertManyResult = await collection.insertMany(recipes);
+    const insertManyResult = await collection.insertMany(events_to_add);
     console.log(`${insertManyResult.insertedCount} documents successfully inserted.\n`);
   } catch (err) {
     console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
