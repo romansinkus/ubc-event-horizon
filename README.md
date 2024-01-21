@@ -9,9 +9,9 @@ From academic seminars, networking events, athletic competitions, and even a yog
 Imagine a UBC where no student ever feels out of the loop, where every event is an opportunity for growth and connection. That's the future Event Horizon is committed to creating.
 
 * Paul Tiberghien
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@paultib](https://github.com/paultib)
 * Roman Sinkus
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@romansinkus](https://github.com/romansinkus)
 * Anna Friesen
     * [@annnafriesen](https://github.com/annnafriesen)
 * Charity Grey
