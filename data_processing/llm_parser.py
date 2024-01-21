@@ -29,17 +29,18 @@ path = os.path.join(os.path.dirname(__file__), "..\\data\scraped_ig_posts_partC.
 urls_df = pd.read_csv(path,  encoding='unicode_escape')
 
 
+
+
 #%%
 #filter out non-events
 isEvent = []
-# 28
 for i, row in urls_df.iterrows():
-    if i < 28:
+    if i < 42:
         continue
     text = row['description']
     
     response = client.chat.completions.create(
-      model="gpt-3.5-turbo-1106",
+      model="gpt-3.5-turbo",
       messages=[
     	{
       	"role": "system",
