@@ -99,21 +99,26 @@ errorEvents = {}
 
 for key, value in listOfEvents.items():
     try:
-        username_key = urls_df[urls_df['postUrl'] == key ]['username']
+        username_key = urls_df[urls_df['postUrl'] == key ].iloc[0]['username']
         event_info = value.content.split('\n')
         event_object = {}
         for info in event_info:
-            key_val = info.split(':', 1)
+            key_val = info.split(': ', 1)
             if len(key_val) == 2:
                 event_object[key_val[0]] = key_val[1]
+        if username_key:
+            if username_key in listOfEventObjects:
+                listOfEventObjects[username_key].append(event_object)
             else:
-                errorEvents[key] = value
-            
-        listOfEventObjects[username_key] = event_object
+                listOfEventObjects[username_key] = [event_object]
+        else: 
+            errorEvents[key] = value
         
-    except:
+    except Exception as e:
+        print(e)
         print(key)
         print(value)
+        errorEvents[key] = value
         print('---------------')
 
 
