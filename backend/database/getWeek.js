@@ -61,6 +61,12 @@ async function getWeeks(weeksFromToday = 0) {
        await client.close();
    }
  }
- 
-// run().catch(console.dir);
+
 module.exports = getWeeks
+
+
+// async function run() {
+//   getWeeks(1);
+// };
+
+// run().catch(console.dir);
