@@ -40,7 +40,6 @@ export const Tooltip = ({ event }) => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
-console.log(event)
   return (
     <div
       className="tooltip"
@@ -52,11 +51,11 @@ console.log(event)
       }}
     >
       <p>Date: {(new Date(event.Date)).toDateString()}</p>
-      <p>Event Title: {event["EventTitle"]}</p>
+      <p>Event Title: {event["Event Title"]}</p>
       {/* <p>Username: {event.ig_username}</p> */}
-      <p>Start Time: {event["StartTime"]}</p>
-      <p>End Time: {event["EndTime"]}</p>
-      <p>Event Description: {event["EventDescription"]}</p>
+      <p>Start Time: {event["Start Time"]}</p>
+      <p>End Time: {event["End Time"]}</p>
+      <p>Event Description: {event["Event Description"]}</p>
       <p>Location: {event.Location}</p>
     </div>
   );

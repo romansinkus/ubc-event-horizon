@@ -71,7 +71,7 @@
 .tooltip {
   position: fixed ;
   width: 300px;
-  height: 420px;
+  /* height: 420px; */
   background-color: rgb(107, 76, 170) ;
   
   z-index: 10 ;
@@ -79,4 +79,9 @@
   border-radius: 10px;
   color: #ffffff;
   padding: 15px;
+}
+
+.tooltip p {
+  margin: 0%;
+  padding: 0%;
 }

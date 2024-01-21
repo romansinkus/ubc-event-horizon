@@ -1,38 +1,64 @@
+.week-navigation {
+  display: flex; /* Enables flexbox */
+  align-items: center; /* Aligns items vertically */
+  justify-content: space-between; /* Distributes space between and around items */
+  margin-bottom: 20px; /* Space below the navigation bar */
+}
+
+.calendar-title {
+  flex-grow: 1; /* Allows the title to grow and take available space */
+  text-align: center; /* Centers the title */
+  font-size: 60px; /* Example font size */
+  color: #ffffff; /* Example color */
+  letter-spacing: 12px; /* Adjusted letter spacing */
+  font-weight: 500;
+  margin: 0; /* Remove default margins */
+}
+
+.week-button {
+  /* Style your buttons here */
+  background: #4d4db7; /* Example background color */
+  color: white; /* Text color */
+  border: none;
+  padding: 10px 20px; /* Padding around text */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 16px; /* Font size */
+}
+
+/* Additional styles for the calendar */
 .calendar {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  width: 60%;
+  width: 55%;
   margin: 0 auto;
-  height: 65vh; /* Adjust as needed */
-  gap: 5px; /* Add this line to control spacing between days */
+  height: 65vh;
+  gap: 5px;
 }
 
 .calendar-subtitle {
   text-align: center;
-  font-size: 24px; /* Smaller than header */
+  font-size: 24px;
   margin-bottom: 20px;
   font-weight: 400;
   color: #90a9b4;
-  /* Additional styling */
-}
-
-.calendar-title {
-  /* Example Styling; adjust as needed */
-  font-size: 100px !important;
-  margin-bottom: 20px;
-  color: #ffffff; /* Choose a color that fits your design */
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 12px !important;
-  
 }
 
 .calendar-header {
-  font-size: 50px; /* Example font size */
-  color: #efefef; /* Example color */
-  letter-spacing: 12px; /* Adjusted letter spacing */
+  font-size:50px;
+  color: #efefef;
+  letter-spacing: 12px;
   text-align: center;
   font-weight: 800;
-  /* Other styles */
 }
+
+/* Adjustments for buttons */
+#prev_button {
+  /* Float and margin removed to align with flexbox */
+}
+
+#next_button {
+  /* Float and margin removed to align with flexbox */
+}
+
