@@ -4,27 +4,33 @@ Created on Sat Jan 20 14:47:12 2024
 
 @author: cherr
 """
-
+from dotenv import load_dotenv
 import os
-import sys
+
 import pandas as pd
+import re
 import time
 import json
 
+
 from openai import OpenAI
 
-sys.path.append('C:\\Users\\cherr\\OneDrive\Documents\\Code projects\\ubc-event-horizon')
-from data_processing.env import get_openai_api_key
 
+load_dotenv()
 #%%
 #AUTHENTICATION
 
-openai_api_key = get_openai_api_key()
+openai_api_key = os.getenv("NEW_OPENAI_API_KEY")
 client = OpenAI(api_key = openai_api_key)
 
 #%%
 # LOAD DATA
-urls_df = pd.read_csv(r"C:\Users\cherr\OneDrive\Documents\Code projects\ubc-event-horizon\data\ig_posts_descriptions.csv",  encoding='unicode_escape')
+path = os.path.join(os.path.dirname(__file__), "..\\data\ig_posts_descriptions.csv")
+urls_df = pd.read_csv(path,  encoding='unicode_escape')
+
+#%%
+
+
 
 #%%
 #filter out non-events
@@ -61,11 +67,15 @@ urls_filtered = urls_df[urls_df['isEvent'] == 'TRUE']
 
 #%%
 
-prompt = 'You are an assistant that when provided with unstructured data in the form of a paragraph will extract information that can be categorized in the six categories as follows in the exact order: Location, Date, Start Time, End Time, Event Title, Event Description. For each category output a line in the following format: CategoryName: CategorizedInformation where CategoryName corresponds with one of Location, Date, Start Time, End Time, Event Title, Event Description, and CategorizedInformation is the categorized extracted information.'
+prompt = 'You are an assistant that when provided with unstructured data in the form of a paragraph will extract information that can be categorized in the six categories as follows in the exact order: Location, Date, Start Time, End Time, Event Title, Event Description. For each category output a line in the following format: CategoryName: CategorizedInformation where CategoryName corresponds with one of Location, Date, Start Time, End Time, Event Title, Event Description, and CategorizedInformation is the categorized extracted information. Convert the extracted Date categroy to a format of monthNumber/dayNumber/yearNumber where monthNumber is between the integer values of 1 to 12, dayNumber  is between the integer values of 1 to 31, and yearNumber is 2024. Also convert the extracted Start Time and End Time into the standardized 24 hour clock of HH:MM where HH is the hour from 00 to 24 and MM is the minutes in an hour from 01 to 59'
+
+
 start = time.time()
 listOfEvents = {}
 
 for i, row in urls_filtered.iterrows():
+    if i < 52:
+        continue
     text = row['description']
     
     response = client.chat.completions.create(
@@ -81,38 +91,66 @@ for i, row in urls_filtered.iterrows():
       }
       ],
       temperature=0.7,
-      max_tokens=64,
+      max_tokens=100,
       top_p=1
     )
 
     msg = response.choices[0].message
     print(msg.content)
     listOfEvents[row['postUrl']] = msg
-    
     ##i ended at 22
 
 end = time.time()
 print(end - start)
+
 #%%
-listOfEventObjects = {}
+#parse response into dict
+
+listOfEvents_52 = listOfEvents
+listOfEventObjects = []
 errorEvents = {}
+
+def make_into_24_hr(time_str):
+    if (re.search(r'\d{2}:\d{2}$', time_str)):
+        return time_str
+    elif (re.match(r'\d{1}:\d{2}$', time_str)):
+        return '0' + time_str
+    elif (re.search('am', time_str.lower())):
+        new_time = re.search('\d{2}:\d{2}', time_str)
+        if new_time:
+            return new_time.group()
+        elif (re.search('\d{2}:\d{2}', time_str)):
+            return re.search('\d{2}:\d{2}', time_str).group()
+        else:
+            return ''
+    elif (re.search('pm', time_str.lower())):
+        hour = re.search('\d{2}:', time_str)
+        minutes = re.search(':\d{2}', time_str)
+        if hour and minutes:
+            new_hour = int(hour.group().replace(':', '')) + 12
+            new_time = str(new_hour) + minutes.group()
+        else:
+            return ''
+    else:
+        return ''
+        
 
 for key, value in listOfEvents.items():
     try:
-        username_key = urls_df[urls_df['postUrl'] == key ].iloc[0]['username']
-        event_info = value.content.split('\n')
         event_object = {}
+        event_info = value.content.split('\n')
+        username = urls_df[urls_df['postUrl'] == key ].iloc[0]['username']
+        event_object['ig_username'] = username
         for info in event_info:
             key_val = info.split(': ', 1)
             if len(key_val) == 2:
+                
+                if (key_val[0] == 'Start Time' or key_val[0] == 'End Time'):
+                    key_val[1] = make_into_24_hr(key_val[1])
+                    
                 event_object[key_val[0]] = key_val[1]
-        if username_key:
-            if username_key in listOfEventObjects:
-                listOfEventObjects[username_key].append(event_object)
-            else:
-                listOfEventObjects[username_key] = [event_object]
-        else: 
-            errorEvents[key] = value
+        
+        listOfEventObjects.append(event_object)
         
     except Exception as e:
         print(e)
@@ -123,9 +161,23 @@ for key, value in listOfEvents.items():
 
 
 #%%
+#filter json for duplicates
 
+event_set = set([])
+listOfEventObject_no_dup = []
+
+for obj in listOfEventObjects:
+    if ('Event Title' in obj) and ('ig_username' in obj):
+        hashname = str(obj['Event Title']) + str(obj['ig_username'])
+        if hashname in event_set:
+            continue
+        event_set.add(hashname)
+    listOfEventObject_no_dup.append(obj)
+
+#%%
 # Convert and write JSON object to file
-with open("events_20240120_test4_43events.json", "w") as outfile: 
-    json.dump(listOfEventObjects, outfile)
+with open("events_20240120_events_32events.json", "w") as outfile: 
+    json.dump(listOfEventObject_no_dup, outfile)
     
+
     
