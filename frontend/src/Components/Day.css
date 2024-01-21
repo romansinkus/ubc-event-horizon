@@ -1,17 +1,21 @@
 .day {
   flex: 0 0 33%; /* Example value - adjust as needed */
   height: 400px;
-  background: rgb(255, 255, 255);
+  /* background: rgb(255, 255, 255); */
+  background-color: #C2BCC8;
   margin: 5px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   overflow: hidden;
-  
 }
 
 .day h3 {
   text-align: center;
-  background: #ffffff;
+  background-color: #434047;
+  /* border-bottom: solid 2px #434047; */
+  border-radius: 10px;
+  color: #f6ecec;
+  font-size: 30px;
   margin-top: 0;
   padding: 10px 0;
 }
@@ -23,10 +27,14 @@
 
 .entry {
   padding: 10px;
-  border-bottom: 1px solid #9a999c;
-  border-top:1px solid #9a999c;
+  /* border-bottom: 1px solid #9a999c;
+  border-top:1px solid #9a999c; */
+  background-color: #434047;
+  color: #ffffff;
   border-radius: 8px; /* Rounded corners */
   margin-bottom: 2px; /* Space between entries */
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 /* For Webkit browsers like Chrome, Safari */
@@ -58,4 +66,17 @@
 .entry {
   /* Existing styles... */
   position: relative; /* To position the hover box relative to the entry */
+}
+
+.tooltip {
+  position: fixed ;
+  width: 300px;
+  height: 420px;
+  background-color: rgb(107, 76, 170) ;
+  
+  z-index: 10 ;
+  pointer-events:none ;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 15px;
 }

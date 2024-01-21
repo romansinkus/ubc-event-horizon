@@ -105,6 +105,7 @@ import Fade from "react-reveal";
 import Day from './Day';
 import './Calendar.css';
 
+
 class About extends Component {
   constructor(props) {
     super(props);
@@ -134,23 +135,45 @@ class About extends Component {
       });
   }
 
+  // transformEventData(data) {
+  //   let transformedData = {};
+  //   for (let day in data) {
+  //     if (!data[day] || Object.keys(data[day]).length === 0) {
+  //       // No events for this day
+  //       transformedData[day] = [];
+  //     } else {
+  //       // Format the event data for this day
+  //       // Since the data for each day is an object, not an array, wrap it in an array
+  //       transformedData[day] = [data[day]].map(event => ({
+  //         data1: event['Event Title'],
+  //         // Add other details as needed
+  //       }));
+  //     }
+  //   }
+  //   return transformedData;
+  // }
+
   transformEventData(data) {
     let transformedData = {};
     for (let day in data) {
       if (!data[day] || Object.keys(data[day]).length === 0) {
-        // No events for this day
         transformedData[day] = [];
       } else {
-        // Format the event data for this day
-        // Since the data for each day is an object, not an array, wrap it in an array
         transformedData[day] = [data[day]].map(event => ({
-          data1: event['Event Title'],
-          // Add other details as needed
+          Date: event.Date,
+          EventTitle: event["Event Title"],
+          Username: event.ig_username,
+          StartTime: event["Start Time"],
+          EndTime: event["End Time"],
+          EventDescription: event["Event Description"],
+          Location: event.Location,
+          // Add other necessary fields here
         }));
       }
     }
     return transformedData;
   }
+  
   
 
   render() {
