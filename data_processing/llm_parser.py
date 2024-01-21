@@ -26,6 +26,7 @@ urls_df = pd.read_csv(r"C:\Users\cherr\OneDrive\Documents\Code projects\ubc-even
 
 #%%
 #filter out non-events
+isEvent = []
 
 for i, row in urls_df.iterrows():
     text = row['description']
@@ -49,12 +50,18 @@ for i, row in urls_df.iterrows():
 
     msg = response.choices[0].message
     print(msg.content)
-    paragraph_dict[row['postUrl']] = msg.content
+    isEvent.append(msg.content)
+    
+isEvent = ['FALSE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE']
+
+urls_df['isEvent'] = pd.Series(isEvent)
+urls_filtered = urls_df[urls_df['isEvent'] == 'TRUE'] 
+
 #%%
 
 paragraph_dict = {}
 
-for i, row in urls_df.iterrows():
+for i, row in urls_filtered.iterrows():
     text = row['description']
     
     response = client.chat.completions.create(
