@@ -27,6 +27,9 @@ async function run() {
        
        const database = client.db('ubc-event-horizon');
        const collection = database.collection('events_by_time');
+       const targetCollection = database.collection('club-ig-profile');
+       // Retrieve the data from the target collection
+       const targetData = await targetCollection.find().toArray();
  
        const query = {
          'Date': {
@@ -42,6 +45,8 @@ async function run() {
        eventsOfTheWeek = {'MON': [], 'TUE': [], 'WED': [], 'THURS': [], 'FRI': [], 'SAT': [], 'SUN': []}
        for (ev of eventsData) {
          let index = week_dates.findIndex((x) => {return x.toDateString() === ev['Date'].toDateString()});
+         const clubNameField = targetData.find((targetDoc) => targetDoc.profileName === ev.ig_username)?.fullName;
+         ev['clubName'] = clubNameField;
          let key = day_to_dayOfWeek[index];
          eventsOfTheWeek[key] = ev;
        }
