@@ -9,13 +9,14 @@ From academic seminars, networking events, athletic competitions, and even a yog
 Imagine a UBC where no student ever feels out of the loop, where every event is an opportunity for growth and connection. That's the future Event Horizon is committed to creating.
 
 * Paul Tiberghien
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@paultib](https://github.com/paultib)
 * Roman Sinkus
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@romansinkus](https://github.com/romansinkus)
 * Anna Friesen
-    * [@DomPizzie](https://twitter.com/dompizzie)
+    * [@annnafriesen](https://github.com/annnafriesen)
 * Charity Grey
     * Github: [@charity-g](https://github.com/charity-g)
+
 
 
 ## Version History
@@ -26,11 +27,8 @@ Imagine a UBC where no student ever feels out of the loop, where every event is 
 ## License
 [comment]: <> (This is a comment, it will not be included -> This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details) 
 
-
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
 * [phantombuster] (https://phantombuster.com) for scraping 4 IG accounts as proof of concept- to develop own ig scrapers for future scaling
-
-
 
