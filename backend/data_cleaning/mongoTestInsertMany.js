@@ -4,7 +4,32 @@ const key = process.env.MONGO_KEY;
 
 // console.log(key);
 
-async function run() {
+async function run () {const uri =
+  "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
+
+// The MongoClient is the object that references the connection to our
+const client = new MongoClient(uri);
+
+// The connect() method does not attempt a connection; instead it instructs
+// the driver to connect using the settings provided when a connection
+// is required.
+await client.connect();
+
+// Provide the name of the database and collection you want to use.
+// If the database and/or collection do not exist, the driver and Atlas
+// will create them automatically when you first write data.
+const dbName = "ubc-event-horizon";
+const collectionName = "events_by_time";
+
+// Create references to the database and collection in order to run
+// operations on them.
+const database = client.db(dbName);
+const collection = database.collection(collectionName);
+
+/*
+  .createIndex({ "metadata.sensorId": 1, "timestamp": 1 })
+}
+async function run_v() {
   const uri =
     "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
 

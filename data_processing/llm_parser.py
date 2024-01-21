@@ -25,22 +25,21 @@ client = OpenAI(api_key = openai_api_key)
 
 #%%
 # LOAD DATA
-path = os.path.join(os.path.dirname(__file__), "..\\data\ig_posts_descriptions.csv")
+path = os.path.join(os.path.dirname(__file__), "..\\data\scraped_ig_posts_partC.csv")
 urls_df = pd.read_csv(path,  encoding='unicode_escape')
-
-#%%
-
 
 
 #%%
 #filter out non-events
 isEvent = []
-
+# 28
 for i, row in urls_df.iterrows():
+    if i < 28:
+        continue
     text = row['description']
     
     response = client.chat.completions.create(
-      model="gpt-3.5-turbo",
+      model="gpt-3.5-turbo-1106",
       messages=[
     	{
       	"role": "system",
@@ -59,8 +58,8 @@ for i, row in urls_df.iterrows():
     msg = response.choices[0].message
     print(msg.content)
     isEvent.append(msg.content)
-    
-isEvent = ['FALSE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE']
+#%%
+# isEvent = ['FALSE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','TRUE','FALSE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','FALSE','TRUE','TRUE','TRUE','TRUE','TRUE','TRUE','FALSE','FALSE','TRUE']
 
 urls_df['isEvent'] = pd.Series(isEvent)
 urls_filtered = urls_df[urls_df['isEvent'] == 'TRUE'] 
@@ -74,8 +73,6 @@ start = time.time()
 listOfEvents = {}
 
 for i, row in urls_filtered.iterrows():
-    if i < 52:
-        continue
     text = row['description']
     
     response = client.chat.completions.create(
