@@ -58,7 +58,7 @@ header .banner-text { width: 100%; }
 header .banner-text h1 {
    font: 90px/1.1em 'opensans-bold', sans-serif;
    color: #fff;
-   letter-spacing: -2px;
+   letter-spacing: 4px;
    margin: 0 auto 18px auto;
 }
 header .banner-text h3 {
@@ -452,11 +452,11 @@ ul#nav li.current a { color: #fe6928; }
    padding-bottom: 60px;
 }
 #portfolio h1 {
-   font: 15px/24px 'opensans-semibold', sans-serif;
+   font: 40px 'opensans-semibold', sans-serif;
    text-transform: uppercase;
    letter-spacing: 1px;
    text-align: center;
-   margin-bottom: 48px;
+   margin-bottom: 18px;
    color: #95A3A3;
 }
 
@@ -545,6 +545,12 @@ ul#nav li.current a { color: #fe6928; }
    opacity: 1;
 	-moz-opacity: 1;
 	filter:alpha(opacity=100);
+}
+
+.yoga-title {
+   font-size: 30px !important;
+   text-decoration: underline;
+   color: rgb(148, 148, 249) !important;
 }
 
 /* popup modal */

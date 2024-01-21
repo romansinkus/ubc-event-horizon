@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ParticlesBg from "particles-bg";
 import Fade from "react-reveal";
-// import ReactTyped from "react-typed";
 
 class Header extends Component {
   render() {
@@ -12,9 +11,25 @@ class Header extends Component {
     const name = this.props.data.name;
     const description = this.props.data.description;
 
+    // Particle configuration
+    const particleConfig = {
+      num: [9, 18],
+      rps: 0.1,
+      radius: [3, 30],
+      life: [1.5, 3],
+      v: [.5, .75],
+      tha: [-40, 40],
+      alpha: [1, 0], // Increased opacity
+      scale: [.1, .4],
+      position: "all",
+      color: ["#4d4db7", "#0e21a0", "#910a67"], // White color with full opacity
+      cross: "dead",
+      random: 15
+    };
+
     return (
       <header id="home">
-        <ParticlesBg type="circle" bg={true} />
+        <ParticlesBg type="custom" config={particleConfig} bg={true} />
 
         <nav id="nav-wrap">
           <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
@@ -30,25 +45,21 @@ class Header extends Component {
                 Home
               </a>
             </li>
-
             <li>
               <a className="smoothscroll" href="#about">
                 Calendar
               </a>
             </li>
-
             <li>
               <a className="smoothscroll" href="#resume">
                 Add Event
               </a>
             </li>
-
             <li>
               <a className="smoothscroll" href="#portfolio">
-                Works
+                Featured
               </a>
             </li>
-
             <li>
               <a className="smoothscroll" href="#contact">
                 Contact
@@ -90,6 +101,7 @@ class Header extends Component {
 }
 
 export default Header;
+
 
 // import React, { Component } from "react";
 // import ParticlesBg from "particles-bg";
