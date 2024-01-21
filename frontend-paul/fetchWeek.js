@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   console.log("test");
-  fetch('http://localhost:3000/api/events')
+  fetch('http://localhost:3000/api/getWeek')
       .then(response => {
-        console.log("test3")
+        // console.log("test3")
           if (!response.ok) {
               throw new Error('Network response was not ok');
           }
