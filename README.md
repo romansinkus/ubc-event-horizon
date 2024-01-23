@@ -1,5 +1,6 @@
 # UBC Event Horizon
 UBC's Event Universe in One Place!
+
 Devpost: https://devpost.com/software/ubc-event-horizon
 ## Description
 Did you know about the upcoming Yoga Rave? Or about the upcoming Science Olympics? There are constantly exciting events happening at UBC, but if you're like many students, keeping track of them all can be overwhelming. According to our survey, only 1% of UBC students are always able to keep up with events going on. With over 650 official AMS clubs, 26 departments, and dozens of student services, that's no surprise. But what if there was a way to always stay in the loop effortlessly?
