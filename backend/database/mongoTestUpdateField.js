@@ -16,7 +16,7 @@
 //      }
 // }
 
-
+const moment = require('moment');
 const { MongoClient } = require('mongodb');
 require("dotenv").config();
 const key = process.env.MONGO_KEY;
@@ -47,6 +47,8 @@ async function run () {const uri =
   console.log('done: ', result);// Close the connection
   await client.close();
 }
+
+
 async function run_after() {
    const uri =
      "mongodb+srv://charity-g:" + key + "@cluster0.n1rc2zq.mongodb.net/?retryWrites=true&w=majority";
@@ -65,33 +67,44 @@ async function run_after() {
    const db = client.db(dbName);
   
    const sourceCollection = db.collection(sourceCollectionName);
-    const targetCollection = db.collection(targetCollectionName);
 
-    // Retrieve the data from the target collection
-    const targetData = await targetCollection.find().toArray();
-
-    const updates = [];
+   const updates = [];
 
     // Generate the update operations for each source document
-    await sourceCollection.find().forEach((sourceDoc) => {
-      const targetField = targetData.find((targetDoc) => targetDoc.profileName === sourceDoc.ig_username)?.fullName;
+    const sourceJsonObjs = await sourceCollection.find().toArray();
+    console.log(JSON.stringify(sourceJsonObjs))
+    sourceJsonObjs.map((sourceDoc) => {
+    // Convert Node.js DateTime object to string format
+    const dateString = moment(sourceDoc['Date']).utc().format('YYYYMMDD') + 'T';
+    console.log(dateString); // Output: 20240121
 
-      if (targetField) {
-        updates.push({
-          updateOne: {
-            filter: { _id: sourceDoc._id },
-            update: { $set: { clubName: targetField } }
-          }
-        });
-      }
-    });
+    // Convert "HH:MM" string format to string format
+    const startTimeString = sourceDoc['Start Time'];
+    const endTimeString = sourceDoc['End Time'];
+    const fullStartDateTimeString = startTimeString ? dateString + startTimeString.replace(':', '') + '00Z' : null;
+    const fullEndDateTimeString =  endTimeString ? dateString + endTimeString.replace(':', '') + '00Z' : null;
+    console.log(fullStartDateTimeString + '  ' +  fullEndDateTimeString)
+    if (fullStartDateTimeString && fullEndDateTimeString) {
+      const ics_desc = "BEGIN:VCALENDAR\nBEGIN:VEVENT\nSUMMARY:" + sourceDoc['Event Title'] + "\nDTSTART:" + fullStartDateTimeString + "\nDTEND: " + fullEndDateTimeString + "\nDESCRIPTION:" + sourceDoc['Event Description'] + "\nLOCATION:" + sourceDoc['Location'] + "\nEND:VEVENT\nEND:VCALENDAR";
+      updates.push({
+            updateOne: {
+              filter: { _id: sourceDoc._id },
+              update: { $set: { _ics: ics_desc } }
+              }
+            });
+    }
+  }
+  );
+  console.log('---');
+  console.log(updates.length);
+  console.log(sourceJsonObjs.length);
+  
+  // Perform the bulk write operation to update multiple documents
+  const result = await sourceCollection.bulkWrite(updates);
 
-    // Perform the bulk write operation to update multiple documents
-    const result = await sourceCollection.bulkWrite(updates);
+  console.log('Updated count:', result.modifiedCount);
 
-    console.log('Updated count:', result.modifiedCount);
-
-    console.log('Result:', result);
+  console.log('Result:', result);
 
    // Close the connection
    await client.close();
@@ -99,4 +112,4 @@ async function run_after() {
 }
 
 
-run().catch(console.dir);
+run_after().catch(console.dir);
